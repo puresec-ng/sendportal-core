@@ -292,7 +292,8 @@ class CreateMessages
         Message::firstOrCreate(
             [
                 'workspace_id' => $campaign->workspace_id,
-                'subscriber_id' => $subscriber->id,
+//                'subscriber_id' => $subscriber->id,
+                'recipient_email' => $subscriber->email,
                 'source_type' => Campaign::class,
                 'source_id' => $campaign->id,
             ],
@@ -311,7 +312,7 @@ class CreateMessages
     protected function findMessage(Campaign $campaign, Subscriber $subscriber): ?Message
     {
         return Message::where('workspace_id', $campaign->workspace_id)
-            ->where('subscriber_id', $subscriber->id)
+            ->where('recipient_email', $subscriber->email)
             ->where('source_type', Campaign::class)
             ->where('source_id', $campaign->id)
             ->first();
