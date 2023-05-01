@@ -103,9 +103,12 @@ class CreateMessages
     {
         \Log::info('- Handling Campaign Segment id='.$segment->id);
 
+        $excluded_users_id = Asset::where('type', 'segment')
+            ->whereIn('contract', json_decode($campaign->excluded_segments,true))
+            ->distinct('user_id')->pluck('user_id')->toArray();
         $userIds = Asset::where('type', 'segment')
                     ->where('contract', $segment->id)
-                    ->whereNotIn('contract', json_decode($campaign->excluded_segments,true))
+                    ->whereNotIn('user_id', $excluded_users_id)
                     ->distinct('user_id')->pluck('user_id')->toArray();
 
         if($campaign->type === 'recurrent')
