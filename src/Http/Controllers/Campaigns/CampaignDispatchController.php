@@ -66,15 +66,17 @@ class CampaignDispatchController extends Controller
 
 
         foreach ($segmentTags as $segment) {
-
+            $excluded_users_id = Asset::where('type', 'segment')
+                ->whereIn('contract',$excludeSegmentTags)
+                ->distinct('user_id')->pluck('user_id')->toArray();
             $totalCampaignSubscriberCount += Asset::
                                             where('contract', $segment)
-                                            ->whereNotIn('contract', $excludeSegmentTags)
+                                            ->whereNotIn('user_id', $excluded_users_id)
                                             ->where('type', 'segment')
                                             ->where('total', '>=', 1)
                                             ->distinct('user_id')
                                             ->count();
-            $totalCampaignSubscriberCount += Asset::where('contract', $segment)->where('type', 'segment')->where('total', '>=', 1)->distinct('user_id')->count();
+//            $totalCampaignSubscriberCount += Asset::where('contract', $segment)->where('type', 'segment')->where('total', '>=', 1)->distinct('user_id')->count();
 
             SendportalCampaignSegment::updateOrCreate(['segment_id' => $segment, 'campaign_id' => $campaign->id], [
                 'segment_id' => $segment, 'campaign_id' => $campaign->id
