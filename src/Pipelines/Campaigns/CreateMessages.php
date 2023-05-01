@@ -105,7 +105,7 @@ class CreateMessages
 
         $userIds = Asset::where('type', 'segment')
                     ->where('contract', $segment->id)
-                    ->whereNotIn('contract', json_decode($campaign->excluded_segments))
+                    ->whereNotIn('contract', json_decode($campaign->excluded_segments,true))
                     ->distinct('user_id')->pluck('user_id')->toArray();
 
         if($campaign->type === 'recurrent')
