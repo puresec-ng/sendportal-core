@@ -103,7 +103,13 @@ class CreateMessages
     {
         \Log::info('- Handling Campaign Segment id='.$segment->id);
 
-        $userIds = Asset::where('type', 'segment')->where('contract', $segment->id)->pluck('user_id')->toArray();
+        $excluded_users_id = Asset::where('type', 'segment')
+            ->whereIn('contract', json_decode($campaign->excluded_segments,true))
+            ->distinct('user_id')->pluck('user_id')->toArray();
+        $userIds = Asset::where('type', 'segment')
+                    ->where('contract', $segment->id)
+                    ->whereNotIn('user_id', $excluded_users_id)
+                    ->distinct('user_id')->pluck('user_id')->toArray();
 
         if($campaign->type === 'recurrent')
         {
@@ -172,6 +178,11 @@ class CreateMessages
         foreach ($subscribers as $subscriber) {
 
             if (! $this->canSendToSubscriber($campaign->id, $subscriber->id)) {
+                continue;
+            }
+
+            if ($message = $this->findMessage($campaign, $subscriber)) {
+                \Log::info('Message has previously been created campaign=' . $campaign->id . ' subscriber=' . $subscriber->id);
                 continue;
             }
 
@@ -286,7 +297,8 @@ class CreateMessages
         Message::firstOrCreate(
             [
                 'workspace_id' => $campaign->workspace_id,
-                'subscriber_id' => $subscriber->id,
+//                'subscriber_id' => $subscriber->id,
+                'recipient_email' => $subscriber->email,
                 'source_type' => Campaign::class,
                 'source_id' => $campaign->id,
             ],
@@ -304,7 +316,7 @@ class CreateMessages
     protected function findMessage(Campaign $campaign, Subscriber $subscriber): ?Message
     {
         return Message::where('workspace_id', $campaign->workspace_id)
-            ->where('subscriber_id', $subscriber->id)
+            ->where('recipient_email', $subscriber->email)
             ->where('source_type', Campaign::class)
             ->where('source_id', $campaign->id)
             ->first();

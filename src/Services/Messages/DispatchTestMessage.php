@@ -109,7 +109,8 @@ class DispatchTestMessage
             ->setFromEmail($message->from_email)
             ->setFromName($message->from_name)
             ->setSubject($message->subject)
-            ->setTrackingOptions($trackingOptions);
+            ->setTrackingOptions($trackingOptions)
+            ->setReplyToEmail($message->reply_to??$message->from_email);
 
         $messageId = $this->relayMessage->handle($mergedContent, $messageOptions, $emailService);
 
@@ -136,6 +137,7 @@ class DispatchTestMessage
             'subject' => '[Test] ' . $campaign->subject,
             'from_name' => $campaign->from_name,
             'from_email' => $campaign->from_email,
+            'reply_to' => $campaign->reply_to,
             'hash' => 'abc123',
         ]);
     }

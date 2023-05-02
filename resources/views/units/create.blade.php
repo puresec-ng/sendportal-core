@@ -1,8 +1,8 @@
 @extends('sendportal::layouts.app')
 
-@section('title', __('Load Unit'))
+@section('title', __('Load Credits'))
 
-@section('heading', __('User Units'))
+@section('heading', __('User Credits'))
 
 @section('content')
 
@@ -11,7 +11,7 @@
             <div class="col-lg-8 offset-lg-2">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Load Unit') }}
+                        {{ __('Load Credits') }}
                     </div>
                     <div class="card-body">
                         <form action="{{ route('sendportal.units.initializeTransaction') }}" method="POST" class="form-horizontal">
@@ -23,7 +23,7 @@
 
                             <x-sendportal.select-field name="coin_id" :label="__('Coin')" :options="$workspaces->pluck('coin', 'id', 'unit_equivalence')" id="coin_value" :value="$workspace->workspace_id ?? old('workspace_id')" />
                             <x-sendportal.text-field id="amount" name="amount" :label="__('Amount')" :value="$workspace->amount ?? old('amount')" />
-                            <x-sendportal.text-field name="amount_in_unit" id="units" :label="__('Expected Units')" :value="$workspace->expected_unit ?? old('expected_unit')" readonly  />
+                            <x-sendportal.text-field name="amount_in_unit" id="units" :label="__('Expected Credits')" :value="$workspace->expected_unit ?? old('expected_unit')" readonly  />
                             <div class="form-group row">
                                 <div class="offset-sm-3 col-sm-9">
                                     <a href="{{ route('sendportal.units.index') }}" class="btn btn-light">{{ __('Cancel') }}</a>
