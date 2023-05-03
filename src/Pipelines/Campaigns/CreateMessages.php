@@ -103,8 +103,14 @@ class CreateMessages
     {
         \Log::info('- Handling Campaign Segment id='.$segment->id);
 
+
+        if(!empty($campaign->excluded_segments)){
+       $excluded_arr = json_decode($campaign->excluded_segments,true);
+        }else{
+            $excluded_arr = [0];
+        }
         $excluded_users_id = Asset::where('type', 'segment')
-            ->whereIn('contract', json_decode($campaign->excluded_segments,true))
+            ->whereIn('contract', $excluded_arr)
             ->distinct('user_id')->pluck('user_id')->toArray();
         $userIds = Asset::where('type', 'segment')
                     ->where('contract', $segment->id)
