@@ -103,6 +103,7 @@ class CreateMessages
     {
         \Log::info('- Handling Campaign Segment id='.$segment->id);
 
+
         if(!empty($campaign->excluded_segments)){
        $excluded_arr = json_decode($campaign->excluded_segments,true);
         }else{
