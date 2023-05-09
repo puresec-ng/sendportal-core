@@ -103,7 +103,19 @@ class CreateMessages
     {
         \Log::info('- Handling Campaign Segment id='.$segment->id);
 
-        $userIds = Asset::where('type', 'segment')->where('contract', $segment->id)->distinct('user_id')->pluck('user_id')->toArray();
+
+        if(!empty($campaign->excluded_segments)){
+       $excluded_arr = json_decode($campaign->excluded_segments,true);
+        }else{
+            $excluded_arr = [0];
+        }
+        $excluded_users_id = Asset::where('type', 'segment')
+            ->whereIn('contract', $excluded_arr)
+            ->distinct('user_id')->pluck('user_id')->toArray();
+        $userIds = Asset::where('type', 'segment')
+                    ->where('contract', $segment->id)
+                    ->whereNotIn('user_id', $excluded_users_id)
+                    ->distinct('user_id')->pluck('user_id')->toArray();
 
         if($campaign->type === 'recurrent')
         {
@@ -268,7 +280,6 @@ class CreateMessages
             'subject' => $campaign->subject,
             'from_name' => $campaign->from_name,
             'from_email' => $campaign->from_email,
-            'reply_to' => $campaign->reply_to,
             'queued_at' => null,
             'sent_at' => null,
         ];
@@ -292,7 +303,8 @@ class CreateMessages
         Message::firstOrCreate(
             [
                 'workspace_id' => $campaign->workspace_id,
-                'subscriber_id' => $subscriber->id,
+//                'subscriber_id' => $subscriber->id,
+                'recipient_email' => $subscriber->email,
                 'source_type' => Campaign::class,
                 'source_id' => $campaign->id,
             ],
@@ -301,7 +313,6 @@ class CreateMessages
                 'subject' => $campaign->subject,
                 'from_name' => $campaign->from_name,
                 'from_email' => $campaign->from_email,
-                'reply_to' => $campaign->reply_to,
                 'queued_at' => now(),
                 'sent_at' => null,
             ]
@@ -311,7 +322,7 @@ class CreateMessages
     protected function findMessage(Campaign $campaign, Subscriber $subscriber): ?Message
     {
         return Message::where('workspace_id', $campaign->workspace_id)
-            ->where('subscriber_id', $subscriber->id)
+            ->where('recipient_email', $subscriber->email)
             ->where('source_type', Campaign::class)
             ->where('source_id', $campaign->id)
             ->first();
