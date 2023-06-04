@@ -83,7 +83,8 @@
                         <div class="form-group row form-group-recipients">
                             <div class="col-sm-12">
                                 <select id="id-field-recipients" class="form-control" name="recipients">
-                                    <option value="send_to_all" selected>
+                                    <option value="" selected>--Select Recipient--</option>
+                                    <option value="send_to_all">
                                         {{ __('All subscribers') }} ({{ $subscriberCount }})
                                     </option>
                                     <option value="send_to_tags" >
@@ -204,7 +205,7 @@
         $('#id-field-recipients').change(function() {
             if (this.value == 'send_to_all') {
                 target.addClass('hide');
-                exclude.addClass('hide');
+                exclude.removeClass('hide');
                 segmentTarget.addClass('hide');
                 excludeSegmentTarget.addClass('hide');
                 $('#id-field-exclude').val("");
