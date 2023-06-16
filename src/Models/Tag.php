@@ -55,8 +55,7 @@ class Tag extends BaseModel
      */
     public function subscribers(): BelongsToMany
     {
-        return 0;
-//        return $this->belongsToMany(Subscriber::class, 'sendportal_tag_subscriber')->withTimestamps();
+        return $this->belongsToMany(Subscriber::class, 'sendportal_tag_subscriber')->withTimestamps();
     }
 
     /**
