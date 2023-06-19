@@ -47,8 +47,8 @@ class DashboardController extends Controller
     public function index(): View
     {
         $workspaceId = Sendportal::currentWorkspaceId();
-        $completedCampaigns = $this->campaigns->completedCampaigns($workspaceId, ['status']);
-//        $subscriberGrowthChart = $this->getSubscriberGrowthChart($workspaceId);
+//        $completedCampaigns = $this->campaigns->completedCampaigns($workspaceId, ['status']);
+        $subscriberGrowthChart = $this->getSubscriberGrowthChart($workspaceId);
         $totalUserUnit = \DB::table('user_units')->where('workspace_id', Sendportal::currentWorkspaceId())->first()->unit_balance ??  0;
 
         return view('sendportal::dashboard.index', [
@@ -56,8 +56,8 @@ class DashboardController extends Controller
             'completedCampaigns' => $completedCampaigns,
             'totalUserUnit'=>$totalUserUnit,
             'campaignStats' => $this->campaignStatisticsService->getForCollection($completedCampaigns, $workspaceId),
-//            'subscriberGrowthChartLabels' => json_encode($subscriberGrowthChart['labels']),
-//            'subscriberGrowthChartData' => json_encode($subscriberGrowthChart['data']),
+            'subscriberGrowthChartLabels' => json_encode($subscriberGrowthChart['labels']),
+            'subscriberGrowthChartData' => json_encode($subscriberGrowthChart['data']),
         ]);
     }
 
