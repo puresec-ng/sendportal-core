@@ -47,13 +47,13 @@ class DashboardController extends Controller
     public function index(): View
     {
         $workspaceId = Sendportal::currentWorkspaceId();
-//        $completedCampaigns = $this->campaigns->completedCampaigns($workspaceId, ['status']);
+        $completedCampaigns = $this->campaigns->completedCampaigns($workspaceId, ['status']);
         $subscriberGrowthChart = $this->getSubscriberGrowthChart($workspaceId);
         $totalUserUnit = \DB::table('user_units')->where('workspace_id', Sendportal::currentWorkspaceId())->first()->unit_balance ??  0;
 
         return view('sendportal::dashboard.index', [
             'recentSubscribers' => $this->subscribers->getRecentSubscribers($workspaceId),
-//            'completedCampaigns' => $completedCampaigns,
+            'completedCampaigns' => $completedCampaigns,
             'totalUserUnit'=>$totalUserUnit,
             'campaignStats' => $this->campaignStatisticsService->getForCollection($completedCampaigns, $workspaceId),
             'subscriberGrowthChartLabels' => json_encode($subscriberGrowthChart['labels']),
