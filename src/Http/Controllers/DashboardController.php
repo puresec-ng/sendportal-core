@@ -48,7 +48,7 @@ class DashboardController extends Controller
     {
         $workspaceId = Sendportal::currentWorkspaceId();
         $completedCampaigns = $this->campaigns->completedCampaigns($workspaceId, ['status']);
-        $subscriberGrowthChart = $this->getSubscriberGrowthChart($workspaceId);
+//        $subscriberGrowthChart = $this->getSubscriberGrowthChart($workspaceId);
         $totalUserUnit = \DB::table('user_units')->where('workspace_id', Sendportal::currentWorkspaceId())->first()->unit_balance ??  0;
 
         return view('sendportal::dashboard.index', [
