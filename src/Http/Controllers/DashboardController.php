@@ -55,8 +55,7 @@ class DashboardController extends Controller
             'recentSubscribers' => $this->subscribers->getRecentSubscribers($workspaceId),
             'completedCampaigns' => $completedCampaigns,
             'totalUserUnit'=>$totalUserUnit,
-//            'campaignStats' => $this->campaignStatisticsService->getForCollection($completedCampaigns, $workspaceId),
-            'campaignStats' => [],
+            'campaignStats' => $this->campaignStatisticsService->getForCollection($completedCampaigns, $workspaceId),
             'subscriberGrowthChartLabels' => json_encode($subscriberGrowthChart['labels']),
             'subscriberGrowthChartData' => json_encode($subscriberGrowthChart['data']),
         ]);
