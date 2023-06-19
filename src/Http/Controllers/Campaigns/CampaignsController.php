@@ -192,6 +192,7 @@ class CampaignsController extends Controller
             ->whereIn('contract', $segmentTagsIds)
             ->groupBy('contract')
             ->get();
+            
         $countArray = $counts->toArray();
 
         $countMap = [];

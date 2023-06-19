@@ -52,11 +52,23 @@ class CreateMessages
      */
     protected function handleAllSubscribers(Campaign $campaign)
     {
+        
+        if(!empty($campaign->excluded_segments)){
+            $excluded_arr = json_decode($campaign->excluded_segments,true);
+             }else{
+                 $excluded_arr = [0];
+             }
+        $excluded_users_id = Asset::where('type', 'segment')
+                        ->whereIn('contract', $excluded_arr)
+                        ->distinct('user_id')->pluck('user_id')
+                        ->toArray();
+
         Subscriber::where('workspace_id', $campaign->workspace_id)
-            ->whereNull('unsubscribed_at')
-            ->chunkById(1000, function ($subscribers) use ($campaign) {
-                $this->dispatchToSubscriber($campaign, $subscribers);
-            }, 'id');
+                    ->whereNotIn('sc_user_id', $excluded_users_id)
+                    ->whereNull('unsubscribed_at')
+                    ->chunkById(1000, function ($subscribers) use ($campaign) {
+                        $this->dispatchToSubscriber($campaign, $subscribers);
+                    }, 'id');
     }
 
     /**
