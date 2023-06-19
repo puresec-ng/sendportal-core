@@ -53,7 +53,7 @@ class DashboardController extends Controller
 
         return view('sendportal::dashboard.index', [
             'recentSubscribers' => $this->subscribers->getRecentSubscribers($workspaceId),
-            'completedCampaigns' => $completedCampaigns,
+//            'completedCampaigns' => $completedCampaigns,
             'totalUserUnit'=>$totalUserUnit,
             'campaignStats' => $this->campaignStatisticsService->getForCollection($completedCampaigns, $workspaceId),
             'subscriberGrowthChartLabels' => json_encode($subscriberGrowthChart['labels']),
