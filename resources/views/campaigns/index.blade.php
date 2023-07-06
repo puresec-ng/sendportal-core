@@ -59,7 +59,7 @@
                             @include('sendportal::campaigns.partials.status')
                         </td>
 
-                        <td>{{ 0 }}</td>
+                        <td>{{ checkPage($campaign->id) }}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-light btn-sm btn-wide" type="button" id="dropdownMenuButton"
