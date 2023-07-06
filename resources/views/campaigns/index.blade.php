@@ -57,7 +57,7 @@
                         <td><span title="{{ $campaign->created_at }}">{{ $campaign->created_at->diffForHumans() }}</span></td>
                         <td>
                             @if(checkPage($campaign->id) > 0)
-                                <span class="badge badge-secondary">{{ 'pending' }}</span>
+                                <span class="badge badge-secondary">{{ 'sending' }}</span>
                             @else
                              @include('sendportal::campaigns.partials.status')
                             @endif
