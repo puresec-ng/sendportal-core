@@ -56,7 +56,11 @@
                         @endif
                         <td><span title="{{ $campaign->created_at }}">{{ $campaign->created_at->diffForHumans() }}</span></td>
                         <td>
-                            @include('sendportal::campaigns.partials.status')
+                            @if(checkPage($campaign->id) > 0)
+                                <span class="badge badge-secondary">{{ $campaign->status->name }}</span>
+                            @else
+                             @include('sendportal::campaigns.partials.status')
+                            @endif
                         </td>
 
                         <td>{{ checkPage($campaign->id) }}</td>
