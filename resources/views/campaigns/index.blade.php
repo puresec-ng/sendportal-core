@@ -31,7 +31,7 @@
                     @endif
                     <th>{{ __('Created') }}</th>
                     <th>{{ __('Status') }}</th>
-                    <th>{{ __('Pending') }}</th>
+                    <th>{{ __('Not Sent') }}</th>
                     <th>{{ __('Actions') }}</th>
                 </tr>
                 </thead>
@@ -56,11 +56,11 @@
                         @endif
                         <td><span title="{{ $campaign->created_at }}">{{ $campaign->created_at->diffForHumans() }}</span></td>
                         <td>
-                            @if(checkPage($campaign->id) > 0)
-                                <span class="badge badge-secondary">{{ 'sending' }}</span>
-                            @else
+{{--                            @if(checkPage($campaign->id) > 0)--}}
+{{--                                <span class="badge badge-secondary">{{ 'sending' }}</span>--}}
+{{--                            @else--}}
                              @include('sendportal::campaigns.partials.status')
-                            @endif
+{{--                            @endif--}}
                         </td>
 
                         <td>{{ checkPage($campaign->id) }}</td>

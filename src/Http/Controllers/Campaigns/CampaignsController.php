@@ -14,6 +14,7 @@ use Sendportal\Base\Http\Resources\Workspace;
 use Sendportal\Base\Models\Asset;
 use Sendportal\Base\Models\Segment;
 use Sendportal\Base\Models\EmailService;
+use Sendportal\Base\Models\Subscriber;
 use Sendportal\Base\Models\Workspace as ModelsWorkspace;
 use Sendportal\Base\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use Sendportal\Base\Repositories\EmailServiceTenantRepository;
@@ -176,7 +177,6 @@ class CampaignsController extends Controller
     {
         $campaign = $this->campaigns->find(Sendportal::currentWorkspaceId(), $id);
         $subscriberCount = $this->subscribers->countActive(Sendportal::currentWorkspaceId());
-
 
         if (!$campaign->draft) {
             return redirect()->route('sendportal.campaigns.status', $id);
