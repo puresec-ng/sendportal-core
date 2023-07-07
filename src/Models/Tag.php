@@ -41,9 +41,9 @@ class Tag extends BaseModel
     protected $guarded = [];
 
     /** @var array */
-    protected $withCount = [
-        'subscribers'
-    ];
+//    protected $withCount = [
+//        'subscribers'
+//    ];
 
     public function campaigns(): BelongsToMany
     {

@@ -69,6 +69,8 @@ class CampaignsController extends Controller
         $params = ['draft' => true];
         $campaigns = $this->campaigns->paginate($workspaceId, 'created_atDesc', ['status'], 25, $params);
 
+
+
         return view('sendportal::campaigns.index', [
             'campaigns' => $campaigns,
             'campaignStats' => $this->campaignStatisticsService->getForPaginator($campaigns, $workspaceId),
@@ -192,6 +194,7 @@ class CampaignsController extends Controller
             ->whereIn('contract', $segmentTagsIds)
             ->groupBy('contract')
             ->get();
+
         $countArray = $counts->toArray();
 
         $countMap = [];
