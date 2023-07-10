@@ -134,7 +134,7 @@
                                 </option>
                             </select>
                         </div>
-                
+
                         <div class="exclude-segments-container hide">
                             @forelse($segmentTags as $tag)
                                 <div class="checkbox">
@@ -168,7 +168,7 @@
                         <div class="form-group row form-group-schedule">
                             <div class="col-sm-12">
                                 <select id="id-field-behaviour" class="form-control" name="behaviour">
-                                    <option value="draft">{{ __('Queue draft') }}</option>
+{{--                                    <option value="draft">{{ __('Queue draft') }}</option>--}}
                                     <option value="auto">{{ __('Send automatically') }}</option>
                                 </select>
                             </div>
