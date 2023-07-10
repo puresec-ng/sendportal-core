@@ -81,6 +81,7 @@ abstract class BaseSubscriberTenantRepository extends BaseTenantRepository imple
     {
         return $this->getQueryBuilder($workspaceId)
             ->whereNull('unsubscribed_at')
+            ->distinct('email')
             ->count();
     }
 
