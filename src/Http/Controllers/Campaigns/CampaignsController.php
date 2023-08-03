@@ -176,6 +176,7 @@ class CampaignsController extends Controller
     public function preview(int $id)
     {
         $campaign = $this->campaigns->find(Sendportal::currentWorkspaceId(), $id);
+
         $subscriberCount = $this->subscribers->countActive(Sendportal::currentWorkspaceId());
 
         if (!$campaign->draft) {
@@ -184,7 +185,7 @@ class CampaignsController extends Controller
 
         $tags = $this->tags->all(Sendportal::currentWorkspaceId(), 'name');
 
-        $scUserID = request()->user()->sc_user_id ?? 0;
+//        $scUserID = request()->user()->sc_user_id ?? 0;
 
 
 
