@@ -206,7 +206,7 @@ class CampaignsController extends Controller
 //
 //        $counts = $countMap;
 
-        return view('sendportal::campaigns.preview', compact('campaign', 'tags', 'segmentTags', 'subscriberCount','counts'));
+        return view('sendportal::campaigns.preview', compact('campaign', 'tags', 'segmentTags', 'subscriberCount'));
     }
 
 
