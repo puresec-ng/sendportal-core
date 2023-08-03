@@ -183,7 +183,7 @@ class CampaignsController extends Controller
             return redirect()->route('sendportal.campaigns.status', $id);
         }
 
-        $tags = $this->tags->all(Sendportal::currentWorkspaceId(), 'name');
+        $tags = [];
 
 
 
