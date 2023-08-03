@@ -15,7 +15,6 @@ use Sendportal\Base\Models\Asset;
 use Sendportal\Base\Models\Segment;
 use Sendportal\Base\Models\EmailService;
 use Sendportal\Base\Models\Subscriber;
-use Sendportal\Base\Models\Tag;
 use Sendportal\Base\Models\Workspace as ModelsWorkspace;
 use Sendportal\Base\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use Sendportal\Base\Repositories\EmailServiceTenantRepository;
@@ -184,7 +183,7 @@ class CampaignsController extends Controller
             return redirect()->route('sendportal.campaigns.status', $id);
         }
 
-        $tags = Tag::where('workspace_id', Sendportal::currentWorkspaceId())->orderBy('name')->get();
+        $tags = [];
 
 //        $scUserID = request()->user()->sc_user_id ?? 0;
 
