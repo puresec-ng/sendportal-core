@@ -33,10 +33,10 @@ class Segment extends BaseModel
     protected $guarded = [];
 
 
-//    protected function getUserAttribute()
-//    {
-//       return Asset::where('type', '=', 'segment')->where('contract', $this->id)->distinct('user_id')->count();
-//    }
+    protected function getUserAttribute()
+    {
+       return Asset::where('type', '=', 'segment')->where('contract', $this->id)->distinct('user_id')->count();
+    }
 
     /** @var array */
     protected $withCount = [
