@@ -177,7 +177,8 @@ class CampaignsController extends Controller
     {
         $campaign = $this->campaigns->find(Sendportal::currentWorkspaceId(), $id);
 
-        $subscriberCount = $this->subscribers->countActive(Sendportal::currentWorkspaceId());
+        $subscriberCount = 5000;
+//        $subscriberCount = $this->subscribers->countActive(Sendportal::currentWorkspaceId());
 
         if (!$campaign->draft) {
             return redirect()->route('sendportal.campaigns.status', $id);
