@@ -189,7 +189,8 @@ class CampaignsController extends Controller
 
 
 
-        $segmentTags = Segment::where('workspace_id', Sendportal::currentWorkspaceId())->get();
+//        $segmentTags = Segment::where('workspace_id', Sendportal::currentWorkspaceId())->get();
+        $segmentTags = Segment::where('id', 0)->get();
 //        $segmentTagsIds = Segment::where('workspace_id', Sendportal::currentWorkspaceId())->pluck('id')->toArray();
 //        $counts = Asset::select('contract', \DB::raw('COUNT(DISTINCT user_id) as aggregate'))
 //            ->where('type', '=', 'segment')
