@@ -189,22 +189,22 @@ class CampaignsController extends Controller
 
 
         $segmentTags = Segment::where('workspace_id', Sendportal::currentWorkspaceId())->get();
-        $segmentTagsIds = Segment::where('workspace_id', Sendportal::currentWorkspaceId())->pluck('id')->toArray();
-        $counts = Asset::select('contract', \DB::raw('COUNT(DISTINCT user_id) as aggregate'))
-            ->where('type', '=', 'segment')
-            ->whereIn('contract', $segmentTagsIds)
-            ->groupBy('contract')
-            ->get();
-
-        $countArray = $counts->toArray();
-
-        $countMap = [];
-
-        foreach ($countArray as $count) {
-            $countMap[$count['contract']] = $count['aggregate'];
-        }
-
-        $counts = $countMap;
+//        $segmentTagsIds = Segment::where('workspace_id', Sendportal::currentWorkspaceId())->pluck('id')->toArray();
+//        $counts = Asset::select('contract', \DB::raw('COUNT(DISTINCT user_id) as aggregate'))
+//            ->where('type', '=', 'segment')
+//            ->whereIn('contract', $segmentTagsIds)
+//            ->groupBy('contract')
+//            ->get();
+//
+//        $countArray = $counts->toArray();
+//
+//        $countMap = [];
+//
+//        foreach ($countArray as $count) {
+//            $countMap[$count['contract']] = $count['aggregate'];
+//        }
+//
+//        $counts = $countMap;
 
         return view('sendportal::campaigns.preview', compact('campaign', 'tags', 'segmentTags', 'subscriberCount','counts'));
     }
