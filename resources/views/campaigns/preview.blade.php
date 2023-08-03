@@ -1,4 +1,4 @@
-{{--@extends('sendportal::layouts.app')--}}
+@extends('sendportal::layouts.app')
 
 @section('title', __('Confirm Campaign'))
 
@@ -102,8 +102,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input name="tags[]" type="checkbox" value="{{ $tag->id }}">
-{{--                                        {{ $tag->name }} ({{ $tag->activeSubscribers()->count() }} {{ __('subscribers') }})--}}
-                                        {{ $tag->name }}  }})
+                                        {{ $tag->name }} ({{ $tag->activeSubscribers()->count() }} {{ __('subscribers') }})
                                     </label>
                                 </div>
                             @empty
@@ -117,7 +116,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input name="segment_tags[]" type="checkbox" value="{{ $tag->id }}">
-                                        {{ $tag->name }} ({{ $tag->user ??0 }} {{ __('subscribers') }})
+                                        {{ $tag->name }} ({{ $tag->user??0 }} {{ __('subscribers') }})
                                     </label>
                                 </div>
                             @empty
