@@ -32,6 +32,12 @@ class Segment extends BaseModel
 
     protected $guarded = [];
 
+
+    protected function getUserAttribute()
+    {
+       return Asset::where('contract', $this->id)->distinct('user_id')->wcount();
+    }
+
     /** @var array */
     protected $withCount = [
         'subscribers',
