@@ -1,6 +1,6 @@
-@extends('sendportal::layouts.app')
+{{--@extends('sendportal::layouts.app')--}}
 
-@section('title', __('Confirm Campaign'))
+{{--@section('title', __('Confirm Campaign'))--}}
 
 @section('heading')
     {{ __('Preview Campaign') }}: {{ $campaign->name }}
@@ -102,7 +102,8 @@
                                 <div class="checkbox">
                                     <label>
                                         <input name="tags[]" type="checkbox" value="{{ $tag->id }}">
-                                        {{ $tag->name }} ({{ $tag->activeSubscribers()->count() }} {{ __('subscribers') }})
+{{--                                        {{ $tag->name }} ({{ $tag->activeSubscribers()->count() }} {{ __('subscribers') }})--}}
+                                        {{ $tag->name }}
                                     </label>
                                 </div>
                             @empty
