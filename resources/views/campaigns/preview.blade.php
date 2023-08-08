@@ -140,7 +140,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input name="exclude_segment_tags[]" type="checkbox" value="{{ $tag->id }}">
-                                        {{ $tag->name }} ({{ $tag->user ??0 }} {{ __('subscribers') }})
+                                        {{ $tag->name }} ({{ $counts[$tag->id]??0 }} {{ __('subscribers') }})
                                     </label>
                                 </div>
                             @empty
